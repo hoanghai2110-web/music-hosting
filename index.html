@@ -1,0 +1,129 @@
+<style> 
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .container {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+    }
+
+    .interactive-container {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        
+        /* ❌ Bỏ hiệu ứng phóng to khi hover */
+        transition: none; 
+    }
+
+    /* ❌ Không cho phóng to khi hover */
+    .interactive-container:hover {
+        transform: none;
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* ❌ Khóa các shape lại, không thay đổi kích thước khi hover */
+    .shape {
+        position: absolute;
+        transition: none !important;
+    }
+
+    .glow {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        pointer-events: none;
+        background: radial-gradient(
+            circle at var(--x, 50%) var(--y, 50%),
+            rgba(255, 255, 255, 0.2) 0%,
+            rgba(255, 255, 255, 0) 60%
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .interactive-container:hover .glow {
+        opacity: 1;
+    }
+    img {
+    margin: 0;
+    width: 100px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+    .sparkles {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        background-image: radial-gradient(
+                circle at 20% 30%,
+                white 1px,
+                transparent 1px
+            ),
+            radial-gradient(circle at 80% 20%, white 1px, transparent 1px),
+            radial-gradient(circle at 40% 70%, white 1px, transparent 1px),
+            radial-gradient(circle at 70% 60%, white 1px, transparent 1px);
+        background-size: 100% 100%;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        animation: twinkle 2s infinite;
+    }
+
+    .interactive-container:hover .sparkles {
+        opacity: 0.5;
+    }
+
+    @keyframes twinkle {
+        0%,
+        100% {
+            transform: scale(1);
+            opacity: 0.5;
+        }
+        50% {
+            transform: scale(1.1);
+            opacity: 0.7;
+        }
+    }
+</style>
+
+<div class="container">
+    <audio id="music" src="https://files.catbox.moe/5d1qm1.mp3"></audio>
+
+ <!-- Thay bằng file nhạc của bạn -->
+    <div class="interactive-container">
+        <img class="icon" src="https://cdn-icons-png.flaticon.com/512/11004/11004580.png" alt="Music Icon">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <div class="shape shape-5"></div>
+        <div class="shape shape-6"></div>
+        <div class="glow"></div>
+        <div class="sparkles"></div>
+    </div>
+</div>
+<script>
+    document.querySelector(".container").addEventListener("dblclick", function playOnce() {
+        let music = document.getElementById("music");
+        music.play();
+        this.removeEventListener("dblclick", playOnce); // Xóa sự kiện sau lần đầu
+    });
+</script>
