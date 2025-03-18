@@ -121,11 +121,15 @@
     </div>
 </div>
 <script>
-    document.addEventListener("click", function playMusic() {
+   document.addEventListener("click", playMusic);
+document.addEventListener("touchstart", playMusic);
+
+function playMusic() {
     let music = document.getElementById("music");
     if (music.paused) {
-        music.play();
+        music.play().catch(error => console.log("Không thể phát nhạc:", error));
     }
-});
+}
+
 
 </script>
