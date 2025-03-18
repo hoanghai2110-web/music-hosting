@@ -105,7 +105,7 @@
 </style>
 
 <div class="container">
-    <audio id="music" src="nhac.mp3"></audio>
+    <audio id="music" src="https://files.catbox.moe/5d1qm1.mp3"></audio>
 
  <!-- Thay bằng file nhạc của bạn https://files.catbox.moe/5d1qm1.mp3 -->
     <div class="interactive-container">
@@ -121,9 +121,11 @@
     </div>
 </div>
 <script>
-    document.querySelector(".container").addEventListener("dblclick", function playOnce() {
-        let music = document.getElementById("music");
+    document.addEventListener("click", function playMusic() {
+    let music = document.getElementById("music");
+    if (music.paused) {
         music.play();
-        this.removeEventListener("dblclick", playOnce); // Xóa sự kiện sau lần đầu
-    });
+    }
+});
+
 </script>
